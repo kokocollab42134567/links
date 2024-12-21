@@ -2,10 +2,8 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 
 const app = express();
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+
 
 
 // API endpoint
@@ -17,7 +15,10 @@ app.get('/getVideo', async (req, res) => {
     }
 
     try {
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+        });
         const page = await browser.newPage();
 
         // Open the provided URL
